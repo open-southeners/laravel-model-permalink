@@ -66,6 +66,27 @@ GeneratePermalink::for($post);
 GeneratePermalink::for($post)->getModelPermalink();
 ```
 
+### Route permissions
+
+The only permalinks route that this package creates **is by default accessible to anyone**.
+
+This can be configured within gate using the following code on your `AppServiceProvider` or any other service provider's `boot` method:
+
+```php
+use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
+
+Gate::define('viewModelPermalink', function (?User $user, Model $model) {
+    // you can replace this with whatever you like...
+    return match (get_class($model)) {
+        \App\Models\Post::class => $model->author->is($user),
+        \App\Models\User::class => $model->is($user),
+        default => false,
+    };
+});
+```
+
 ## Partners
 
 [![skore logo](https://github.com/open-southeners/partners/raw/main/logos/skore_logo.png)](https://getskore.com)
