@@ -1,9 +1,9 @@
 <?php
 
-namespace OpenSoutheners\PhpPackage\Tests;
+namespace OpenSoutheners\LaravelModelPermalink\Tests;
 
+use OpenSoutheners\LaravelModelPermalink\ServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
-use OpenSoutheners\PhpPackage\ServiceProvider;
 
 abstract class TestCase extends Orchestra
 {
@@ -18,5 +18,28 @@ abstract class TestCase extends Orchestra
         return [
             ServiceProvider::class,
         ];
+    }
+
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function defineEnvironment($app)
+    {
+        $app['config']->set('model-permalink', include_once __DIR__.'/../config/model-permalink.php');
+    }
+
+    /**
+     * Define database migrations.
+     *
+     * @return void
+     */
+    protected function defineDatabaseMigrations()
+    {
+        $this->loadLaravelMigrations();
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/database');
     }
 }

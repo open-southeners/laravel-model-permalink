@@ -24,6 +24,7 @@
   </testsuites>
   <php>
     <ini name="memory_limit" value="2048M"/>
+    <env name="APP_KEY" value="base64:+ztiSfeHDndU7mNSMBwUABxLstWzylDlR0iDtbJgic4=" force="true"/>
     <env name="DB_CONNECTION" value="sqlite" force="true"/>
     <env name="DB_DATABASE" value=":memory:" force="true"/>
   </php>

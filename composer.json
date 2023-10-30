@@ -1,9 +1,12 @@
 {
-    "name": "open-southeners/packagist_package_here",
-    "description": "and_description_here",
+    "name": "open-southeners/laravel-model-permalink",
+    "description": "Add permalinks to your application's Eloquent models",
     "license": "MIT",
     "keywords": [
-        "open-southeners"
+        "open-southeners",
+        "laravel-package",
+        "eloquent",
+        "model-permalinks"
     ],
     "authors": [
         {
@@ -19,7 +22,9 @@
         }
     ],
     "require": {
-        "php": "^8.0 || ^8.1 || ^8.2"
+        "php": "^8.0",
+        "illuminate/database": "^9.0 || ^10.0",
+        "illuminate/support": "^9.0 || ^10.0"
     },
     "require-dev": {
         "nunomaduro/larastan": "^2.0",
@@ -30,12 +35,12 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "OpenSoutheners\\PhpPackage\\": "src"
+            "OpenSoutheners\\LaravelModelPermalink\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OpenSoutheners\\PhpPackage\\Tests\\": "tests"
+            "OpenSoutheners\\LaravelModelPermalink\\Tests\\": "tests"
         }
     },
     "config": {
@@ -44,7 +49,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "OpenSoutheners\\PhpPackage\\ServiceProvider"
+                "OpenSoutheners\\LaravelModelPermalink\\ServiceProvider"
             ]
         }
     }
