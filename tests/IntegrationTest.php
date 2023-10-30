@@ -4,7 +4,7 @@ namespace OpenSoutheners\LaravelModelPermalink\Tests;
 
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Route;
-use OpenSoutheners\LaravelModelPermalink\ModelPermalink;
+use OpenSoutheners\LaravelModelPermalink\GeneratePermalink;
 use OpenSoutheners\LaravelModelPermalink\Tests\Fixtures\Post;
 
 class IntegrationTest extends TestCase
@@ -18,17 +18,8 @@ class IntegrationTest extends TestCase
             'content' => 'Hello world',
         ])->save();
 
-        $modelPermalink = new ModelPermalink();
-
-        $modelPermalink->model()->associate($post);
-
-        $modelPermalink->save();
-
-        $modelPermalink = new ModelPermalink();
-
-        $modelPermalink->model()->associate($post);
-
-        $modelPermalink->save();
+        GeneratePermalink::for($post, false);
+        GeneratePermalink::for($post, false);
 
         $this->assertCount(2, $post->permalinks);
     }
@@ -60,13 +51,9 @@ class IntegrationTest extends TestCase
             'content' => 'Hello world',
         ])->save();
 
-        $modelPermalink = new ModelPermalink();
+        $modelPermalink = GeneratePermalink::for($post);
 
-        $modelPermalink->model()->associate($post);
-
-        $modelPermalink->save();
-
-        $response = $this->get(route('model_permalinks.show', $modelPermalink));
+        $response = $this->get($modelPermalink->getModelPermalink());
 
         $response->assertRedirectToRoute('posts.show', $post);
 

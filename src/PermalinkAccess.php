@@ -4,6 +4,9 @@ namespace OpenSoutheners\LaravelModelPermalink;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
+/**
+ * @mixin \Illuminate\Database\Eloquent\Model
+ */
 interface PermalinkAccess
 {
     /**

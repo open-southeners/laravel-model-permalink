@@ -28,20 +28,18 @@ class ModelPermalink extends Model
     }
 
     /**
-     * Get the route key for the model.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'uuid';
-    }
-
-    /**
      * Model that is being permalinked.
      */
     public function model(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    /**
+     * Get permalink route URL from related model.
+     */
+    public function getModelPermalink(): string
+    {
+        return route('model_permalinks.show', $this->uuid);
     }
 }

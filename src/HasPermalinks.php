@@ -14,6 +14,6 @@ trait HasPermalinks
      */
     public function permalinks(): MorphMany
     {
-        return $this->morphMany(ModelPermalink::class, 'model');
+        return $this->morphMany(config('model-permalink.model'), 'model')->latest();
     }
 }

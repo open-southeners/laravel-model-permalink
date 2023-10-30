@@ -3,24 +3,24 @@
 namespace OpenSoutheners\LaravelModelPermalink\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
-use OpenSoutheners\LaravelModelPermalink\ModelPermalink;
 
 class ModelPermalinkController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __invoke(Request $request, string $permalink)
+    public function __invoke(string $permalink)
     {
-        $permalink = ModelPermalink::where('uuid', $permalink)->firstOrFail();
+        /** @var class-string<\OpenSoutheners\LaravelModelPermalink\ModelPermalink> $model */
+        $model = config('model-permalink.model');
 
-        /** @var \OpenSoutheners\LaravelModelPermalink\PermalinkAccess $permalinkModel */
-        $permalinkModel = $permalink->model()->first();
+        $permalink = $model::with('model')
+            ->where('uuid', $permalink)
+            ->firstOrFail();
 
-        $this->authorize('viewModelPermalink', $permalinkModel);
+        $this->authorize('viewModelPermalink', $permalink->model);
 
-        return Response::redirectTo($permalinkModel->getPermalink());
+        return Response::redirectTo($permalink->model->getPermalink());
     }
 }
