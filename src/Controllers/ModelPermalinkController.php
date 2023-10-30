@@ -15,6 +15,7 @@ class ModelPermalinkController extends Controller
         /** @var class-string<\OpenSoutheners\LaravelModelPermalink\ModelPermalink> $model */
         $model = config('model-permalink.model');
 
+        /** @var \OpenSoutheners\LaravelModelPermalink\ModelPermalink $permalink */
         $permalink = $model::with('model')
             ->where('uuid', $permalink)
             ->firstOrFail();

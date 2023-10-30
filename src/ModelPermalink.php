@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
+/**
+ * @property string $id
+ * @property string $uuid
+ * @property string $model_id
+ * @property string $model_type
+ */
 class ModelPermalink extends Model
 {
     use HasUuids;

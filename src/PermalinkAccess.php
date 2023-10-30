@@ -11,6 +11,8 @@ interface PermalinkAccess
 {
     /**
      * Get permanent links morph relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany<\OpenSoutheners\LaravelModelPermalink\ModelPermalink>
      */
     public function permalinks(): MorphMany;
 
