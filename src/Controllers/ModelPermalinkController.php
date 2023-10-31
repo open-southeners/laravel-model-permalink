@@ -3,6 +3,7 @@
 namespace OpenSoutheners\LaravelModelPermalink\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 
@@ -10,7 +11,10 @@ class ModelPermalinkController extends Controller
 {
     use AuthorizesRequests;
 
-    public function __invoke(string $permalink)
+    /**
+     * Invoke controller action.
+     */
+    public function __invoke(string $permalink): RedirectResponse
     {
         /** @var class-string<\OpenSoutheners\LaravelModelPermalink\ModelPermalink> $model */
         $model = config('model-permalink.model');

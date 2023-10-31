@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 /**
  * @property string $id
  * @property string $uuid
+ * @property \OpenSoutheners\LaravelModelPermalink\PermalinkAccess $model
  * @property string $model_id
  * @property string $model_type
  */
@@ -35,6 +36,8 @@ class ModelPermalink extends Model
 
     /**
      * Model that is being permalinked.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo<\Illuminate\Database\Eloquent\Model, self>
      */
     public function model(): MorphTo
     {
