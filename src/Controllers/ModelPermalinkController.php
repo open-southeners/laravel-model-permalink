@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
+use OpenSoutheners\LaravelModelPermalink\Events\PermalinkGotAccessed;
 
 class ModelPermalinkController extends Controller
 {
@@ -25,6 +26,8 @@ class ModelPermalinkController extends Controller
             ->firstOrFail();
 
         $this->authorize('viewModelPermalink', $permalink->model);
+
+        event(new PermalinkGotAccessed($permalink->model));
 
         return Response::redirectTo($permalink->model->getPermalink());
     }

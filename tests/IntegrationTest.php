@@ -3,7 +3,9 @@
 namespace OpenSoutheners\LaravelModelPermalink\Tests;
 
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
+use OpenSoutheners\LaravelModelPermalink\Events\PermalinkGotAccessed;
 use OpenSoutheners\LaravelModelPermalink\GeneratePermalink;
 use OpenSoutheners\LaravelModelPermalink\Tests\Fixtures\Post;
 
@@ -53,7 +55,11 @@ class IntegrationTest extends TestCase
 
         $modelPermalink = GeneratePermalink::for($post);
 
+        Event::fake(PermalinkGotAccessed::class);
+
         $response = $this->get($modelPermalink->getModelPermalink());
+
+        Event::assertDispatched(PermalinkGotAccessed::class, fn (PermalinkGotAccessed $event) => $event->model->is($post));
 
         $response->assertRedirectToRoute('posts.show', $post);
 
